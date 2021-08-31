@@ -7,7 +7,8 @@ DIRS=$(OBJDIR) $(OBJSDIR) $(BINDIR)
 SRCDIR=./src
 INCDIR=./inc
 OBJDIR=./obj
-OBJSDIR=./obj/cards
+OBJSDIR=$(OBJDIR)/cards \
+		$(OBJDIR)/table
 BINDIR=./bin
 
 SRC=$(shell find $(SRCDIR) -type f -name "*.cpp")
@@ -15,14 +16,20 @@ INC=$(shell find $(INCDIR) -type f \( -name "*.h" -o -name "*.hpp" \))
 OBJ=$(patsubst ./src/%.cpp,./obj/%.o,$(SRC))
 BIN=$(BINDIR)/game
 
-all: $(DIRS) $(BIN)
+all: tags $(DIRS) $(BIN) run
 
-.PHONY: $(BIN)
 $(BIN): $(SRC) $(INC) $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(BIN)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
+
+run: $(BIN)
+	$(BIN)
+
+.PHONY: tags
+tags:
+	ctags -R
 
 $(DIRS):
 	$(MKDIR) $@
@@ -32,3 +39,4 @@ clean:
 	$(RM) $(OBJ)
 	$(RM) $(BIN)
 	$(RM) $(DIRS)
+	$(RM) tags
