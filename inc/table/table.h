@@ -16,7 +16,7 @@ public:
 private:
 	static Table *instance_;
 	Card *cards_[4][13];
-	void draw_card(int, int);
+	void draw_card(bool, int, int);
 
 	Table()
 	{

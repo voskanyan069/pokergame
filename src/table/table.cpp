@@ -30,52 +30,203 @@ void Table::init_cards()
 
 void Table::print_cards(std::vector<Card*> cards)
 {
-	for (int i = 0; i < cards.size(); ++i)
+	for (auto const &card : cards)
 	{
-		this->draw_card(cards[i]->get_suit(), cards[i]->get_rank());
+		this->draw_card(
+				card->is_shown(),
+				card->get_suit(),
+				card->get_rank()
+				);
 	}
+	std::cout << std::endl;
 }
 
-void Table::draw_card(int suit_, int rank_)
+void Table::draw_card(bool is_shown, int suit, int rank)
 {
-	int rank = rank_ + 1;
-	std::string card = "U+F0";
-	std::string rank_str;
-	switch (rank)
+	if (is_shown)
 	{
-		case 10:
-			rank_str = "A";
-			break;
-		case 11:
-			rank_str = "B";
-			break;
-		case 12:
-			rank_str = "C";
-			break;
-		case 13:
-			rank_str = "D";
-			break;
-		case 14:
-			rank_str = "E";
-			break;
-		default:
-			rank_str = std::to_string(rank);
+		switch (suit)
+		{
+			case 0:
+				switch (rank)
+				{
+					case 0:
+						std::cout << "🂢 ";
+						break;
+					case 1:
+						std::cout << "🂣 ";
+						break;
+					case 2:
+						std::cout << "🂤 ";
+						break;
+					case 3:
+						std::cout << "🂥 ";
+						break;
+					case 4:
+						std::cout << "🂦 ";
+						break;
+					case 5:
+						std::cout << "🂧 ";
+						break;
+					case 6:
+						std::cout << "🂨 ";
+						break;
+					case 7:
+						std::cout << "🂩 ";
+						break;
+					case 8:
+						std::cout << "🂪 ";
+						break;
+					case 9:
+						std::cout << "🂫 ";
+						break;
+					case 10:
+						std::cout << "🂭 ";
+						break;
+					case 11:
+						std::cout << "🂮 ";
+						break;
+					case 12:
+						std::cout << "🂡 ";
+						break;
+				}
+				break;
+			case 1:
+				switch (rank)
+				{
+					case 0:
+						std::cout << "🂲 ";
+						break;
+					case 1:
+						std::cout << "🂳 ";
+						break;
+					case 2:
+						std::cout << "🂴 ";
+						break;
+					case 3:
+						std::cout << "🂵 ";
+						break;
+					case 4:
+						std::cout << "🂶 ";
+						break;
+					case 5:
+						std::cout << "🂷 ";
+						break;
+					case 6:
+						std::cout << "🂸 ";
+						break;
+					case 7:
+						std::cout << "🂹 ";
+						break;
+					case 8:
+						std::cout << "🂺 ";
+						break;
+					case 9:
+						std::cout << "🂻 ";
+						break;
+					case 10:
+						std::cout << "🂽 ";
+						break;
+					case 11:
+						std::cout << "🂾 ";
+						break;
+					case 12:
+						std::cout << "🂱 ";
+						break;
+				}
+				break;
+			case 2:
+				switch (rank)
+				{
+					case 0:
+						std::cout << "🃂 ";
+						break;
+					case 1:
+						std::cout << "🃃 ";
+						break;
+					case 2:
+						std::cout << "🃄 ";
+						break;
+					case 3:
+						std::cout << "🃅 ";
+						break;
+					case 4:
+						std::cout << "🃆 ";
+						break;
+					case 5:
+						std::cout << "🃇 ";
+						break;
+					case 6:
+						std::cout << "🃈 ";
+						break;
+					case 7:
+						std::cout << "🃉 ";
+						break;
+					case 8:
+						std::cout << "🃊 ";
+						break;
+					case 9:
+						std::cout << "🃋 ";
+						break;
+					case 10:
+						std::cout << "🃍 ";
+						break;
+					case 11:
+						std::cout << "🃎 ";
+						break;
+					case 12:
+						std::cout << "🃁 ";
+						break;
+				}
+				break;
+			case 3:
+				switch (rank)
+				{
+					case 0:
+						std::cout << "🃒 ";
+						break;
+					case 1:
+						std::cout << "🃓 ";
+						break;
+					case 2:
+						std::cout << "🃔 ";
+						break;
+					case 3:
+						std::cout << "🃕 ";
+						break;
+					case 4:
+						std::cout << "🃖 ";
+						break;
+					case 5:
+						std::cout << "🃗 ";
+						break;
+					case 6:
+						std::cout << "🃘 ";
+						break;
+					case 7:
+						std::cout << "🃙 ";
+						break;
+					case 8:
+						std::cout << "🃚 ";
+						break;
+					case 9:
+						std::cout << "🃛 ";
+						break;
+					case 10:
+						std::cout << "🃝 ";
+						break;
+					case 11:
+						std::cout << "🃞 ";
+						break;
+					case 12:
+						std::cout << "🃑 ";
+						break;
+				}
+				break;
+		}
 	}
-	switch (suit_)
+	else
 	{
-		case 0:
-			card += "A";
-			break;
-		case 1:
-			card += "B";
-			break;
-		case 2:
-			card += "C";
-			break;
-		case 3:
-			card += "D";
-			break;
+		std::cout << "🃟 ";
 	}
-	card += rank_str;
-	std::cout << card << std::endl;
 }
