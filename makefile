@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-I$(INCDIR)
+CFLAGS=-I$(INCDIR) -g
 RM=rm -rf
 MKDIR=mkdir -p
 
@@ -8,7 +8,8 @@ SRCDIR=./src
 INCDIR=./inc
 OBJDIR=./obj
 OBJSDIR=$(OBJDIR)/cards \
-		$(OBJDIR)/table
+		$(OBJDIR)/table \
+		$(OBJDIR)/players
 BINDIR=./bin
 
 SRC=$(shell find $(SRCDIR) -type f -name "*.cpp")

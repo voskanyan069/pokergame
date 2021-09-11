@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdlib.h> 
 #include <table/table.h>
 
 Table *Table::instance_ = nullptr;
@@ -19,6 +20,7 @@ Card **Table::get_cards()
 
 void Table::init_cards()
 {
+	srand(time(0));
 	for (int i = 0; i < 4; ++i)
 	{
 		for (int j = 0; j < 13; ++j)
@@ -28,205 +30,82 @@ void Table::init_cards()
 	}
 }
 
+std::vector<Card*> Table::init_player_cards(bool is_shown)
+{
+	std::vector<Card*> cards;
+	Card *card;
+
+	for (int i = 0; i < 2; ++i)
+	{
+		do
+		{
+			int suit = rand() % 4;
+			int rank = rand() % 13;
+			card = cards_[suit][rank];
+		} while (card == NULL);
+
+		card->set_shown(is_shown);
+		cards.push_back(card);
+		drop_card(card);
+	}
+
+	return cards;
+}
+
+void Table::get_table_cards(int hidden_cards)
+{
+	bool is_shown = 1;
+	Card *card;
+	hidden_cards = 4 - hidden_cards;
+	for (int i = 0; i < 5; ++i)
+	{
+		do
+		{
+			int suit = rand() % 4;
+			int rank = rand() % 13;
+			card = cards_[suit][rank];
+		} while (card == NULL);
+
+		card->set_shown(is_shown);
+		table_cards.push_back(card);
+		drop_card(card);
+
+		if (i == hidden_cards)
+		{
+			is_shown = 0;
+		}
+	}
+	print_cards(table_cards);
+}
+
+void Table::open_hidden_card(int index)
+{
+	Card *card;
+	do
+	{
+		int suit = rand() % 4;
+		int rank = rand() % 13;
+		card = cards_[suit][rank];
+	} while (card == NULL);
+	table_cards[index] = card;
+	drop_card(card);
+	print_cards(table_cards);
+}
+
 void Table::print_cards(std::vector<Card*> cards)
 {
 	for (auto const &card : cards)
 	{
-		this->draw_card(
-				card->is_shown(),
-				card->get_suit(),
-				card->get_rank()
-				);
+		std::cout << card;
 	}
 	std::cout << std::endl;
 }
 
+void Table::drop_card(Card *card)
+{
+	cards_[card->get_suit()][card->get_rank()] = NULL;
+}
+
 void Table::draw_card(bool is_shown, int suit, int rank)
 {
-	if (is_shown)
-	{
-		switch (suit)
-		{
-			case 0:
-				switch (rank)
-				{
-					case 0:
-						std::cout << "🂢 ";
-						break;
-					case 1:
-						std::cout << "🂣 ";
-						break;
-					case 2:
-						std::cout << "🂤 ";
-						break;
-					case 3:
-						std::cout << "🂥 ";
-						break;
-					case 4:
-						std::cout << "🂦 ";
-						break;
-					case 5:
-						std::cout << "🂧 ";
-						break;
-					case 6:
-						std::cout << "🂨 ";
-						break;
-					case 7:
-						std::cout << "🂩 ";
-						break;
-					case 8:
-						std::cout << "🂪 ";
-						break;
-					case 9:
-						std::cout << "🂫 ";
-						break;
-					case 10:
-						std::cout << "🂭 ";
-						break;
-					case 11:
-						std::cout << "🂮 ";
-						break;
-					case 12:
-						std::cout << "🂡 ";
-						break;
-				}
-				break;
-			case 1:
-				switch (rank)
-				{
-					case 0:
-						std::cout << "🂲 ";
-						break;
-					case 1:
-						std::cout << "🂳 ";
-						break;
-					case 2:
-						std::cout << "🂴 ";
-						break;
-					case 3:
-						std::cout << "🂵 ";
-						break;
-					case 4:
-						std::cout << "🂶 ";
-						break;
-					case 5:
-						std::cout << "🂷 ";
-						break;
-					case 6:
-						std::cout << "🂸 ";
-						break;
-					case 7:
-						std::cout << "🂹 ";
-						break;
-					case 8:
-						std::cout << "🂺 ";
-						break;
-					case 9:
-						std::cout << "🂻 ";
-						break;
-					case 10:
-						std::cout << "🂽 ";
-						break;
-					case 11:
-						std::cout << "🂾 ";
-						break;
-					case 12:
-						std::cout << "🂱 ";
-						break;
-				}
-				break;
-			case 2:
-				switch (rank)
-				{
-					case 0:
-						std::cout << "🃂 ";
-						break;
-					case 1:
-						std::cout << "🃃 ";
-						break;
-					case 2:
-						std::cout << "🃄 ";
-						break;
-					case 3:
-						std::cout << "🃅 ";
-						break;
-					case 4:
-						std::cout << "🃆 ";
-						break;
-					case 5:
-						std::cout << "🃇 ";
-						break;
-					case 6:
-						std::cout << "🃈 ";
-						break;
-					case 7:
-						std::cout << "🃉 ";
-						break;
-					case 8:
-						std::cout << "🃊 ";
-						break;
-					case 9:
-						std::cout << "🃋 ";
-						break;
-					case 10:
-						std::cout << "🃍 ";
-						break;
-					case 11:
-						std::cout << "🃎 ";
-						break;
-					case 12:
-						std::cout << "🃁 ";
-						break;
-				}
-				break;
-			case 3:
-				switch (rank)
-				{
-					case 0:
-						std::cout << "🃒 ";
-						break;
-					case 1:
-						std::cout << "🃓 ";
-						break;
-					case 2:
-						std::cout << "🃔 ";
-						break;
-					case 3:
-						std::cout << "🃕 ";
-						break;
-					case 4:
-						std::cout << "🃖 ";
-						break;
-					case 5:
-						std::cout << "🃗 ";
-						break;
-					case 6:
-						std::cout << "🃘 ";
-						break;
-					case 7:
-						std::cout << "🃙 ";
-						break;
-					case 8:
-						std::cout << "🃚 ";
-						break;
-					case 9:
-						std::cout << "🃛 ";
-						break;
-					case 10:
-						std::cout << "🃝 ";
-						break;
-					case 11:
-						std::cout << "🃞 ";
-						break;
-					case 12:
-						std::cout << "🃑 ";
-						break;
-				}
-				break;
-		}
-	}
-	else
-	{
-		std::cout << "🃟 ";
-	}
 }

@@ -14,3 +14,8 @@ bool Card::is_shown()
 {
 	return this->is_shown_;
 }
+
+void Card::set_shown(bool is_shown)
+{
+	this->is_shown_ = is_shown;
+}
