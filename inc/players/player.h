@@ -10,18 +10,26 @@ public:
 	Player(std::string name, bool is_other=1) :
 		name_(name), is_other_(is_other)
 	{
-		get_cards();
+		init_cards();
+		set_chips();
 	}
 
-	void get_cards();
+	void init_cards();
 	void print();
+	void fold();
+	void check();
+	void call();
+	bool raise();
 
 private:
 	const std::string name_;
+	unsigned int chips_count;
 	const bool is_other_;
 	std::vector<Card*> cards;
 
 	void print_cards();
+	void print_chips();
+	void set_chips();
 	std::string get_name();
 };
 

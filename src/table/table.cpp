@@ -18,6 +18,11 @@ Card **Table::get_cards()
 	return *this->cards_;
 }
 
+void Table::reset()
+{
+	table_cards.clear();
+}
+
 void Table::init_cards()
 {
 	srand(time(0));
@@ -108,4 +113,24 @@ void Table::drop_card(Card *card)
 
 void Table::draw_card(bool is_shown, int suit, int rank)
 {
+}
+
+bool Table::get_is_check()
+{
+	return is_check;
+}
+
+void Table::set_is_check(bool ic)
+{
+	is_check = ic;
+}
+
+unsigned int Table::get_call_chips()
+{
+	return call_chips;
+}
+
+void Table::set_call_chips(int cc)
+{
+	call_chips = cc;
 }

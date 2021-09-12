@@ -20,9 +20,19 @@ void Dealer::open_card()
 		table->get_table_cards(2);
 		cards_count = 3;
 	}
-	else if (cards_count == 3 || cards_count == 4)
+	else if (cards_count >= 3 && cards_count <= 5)
 	{
 		table->open_hidden_card(cards_count);
 		++cards_count;
 	}
+}
+
+void Dealer::reset_cards()
+{
+	cards_count = 0;
+}
+
+bool Dealer::is_all_cards_openned()
+{
+	return cards_count == 6;
 }

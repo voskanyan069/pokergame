@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-I$(INCDIR) -g
+CFLAGS=-I$(INCDIR) -g -std=c++17
 RM=rm -rf
 MKDIR=mkdir -p
 
@@ -9,13 +9,15 @@ INCDIR=./inc
 OBJDIR=./obj
 OBJSDIR=$(OBJDIR)/cards \
 		$(OBJDIR)/table \
-		$(OBJDIR)/players
+		$(OBJDIR)/players \
+		$(OBJDIR)/config \
+		$(OBJDIR)/log
 BINDIR=./bin
 
 SRC=$(shell find $(SRCDIR) -type f -name "*.cpp")
 INC=$(shell find $(INCDIR) -type f \( -name "*.h" -o -name "*.hpp" \))
 OBJ=$(patsubst ./src/%.cpp,./obj/%.o,$(SRC))
-BIN=$(BINDIR)/game
+BIN=$(BINDIR)/poker
 
 all: tags $(DIRS) $(BIN) run
 
